@@ -25,6 +25,7 @@ return [
                     'fileMap' => [
                         'app'       => 'app.php',
                         'app/error' => 'error.php',
+                        'app/user'  => 'user.php'
                     ],
                 ],
             ],
