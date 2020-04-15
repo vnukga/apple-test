@@ -11,7 +11,21 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'apple' => [
+            'class' => 'backend\modules\apple\Module',
+            'defaultRoute' => 'apple/index',
+            'as access' => [ // if you need to set access
+                'class' => 'yii\filters\AccessControl',
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'] // all auth users
+                    ],
+                ]
+            ],
+        ],
+    ],
     'language' => 'ru-RU',
     'components' => [
         'request' => [
@@ -19,6 +33,15 @@ return [
         ],
         'i18n' => [
             'translations' => [
+                'apple*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => __DIR__ . '/../modules/apple/messages',
+                    'fileMap' => [
+                        'apple'       => 'apple.php',
+                        'apple/error' => 'error.php',
+                        'apple/user'  => 'user.php'
+                    ],
+                ],
                 'app*' => [
                     'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => __DIR__ . '/../../messages',
@@ -51,14 +74,12 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
