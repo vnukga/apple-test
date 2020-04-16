@@ -26,5 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach; ?>
     </div>
 
+    <p>
+        <?= Html::a(Yii::t('apple', 'Generate Apples'), ['generate'], ['class' => 'btn btn-success']) ?>
+    </p>
+
 
 </div>

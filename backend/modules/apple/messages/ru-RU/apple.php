@@ -14,5 +14,7 @@ return [
     'Update' => 'Изменить',
     'Delete' => 'Удалить',
     'Update Apple: {name}' => 'Изменить яблоко: {name}',
-    'Save' => 'Сохранить'
+    'Save' => 'Сохранить',
+    'Generate Apples' => 'Сгенерировать яблоки',
+    'Apples have been generated: ' => 'Яблок сгенерировано: '
 ];

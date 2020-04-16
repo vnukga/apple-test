@@ -51,4 +51,5 @@ class Apple extends ActiveRecord
             'status' => Yii::t('apple', 'Status'),
         ];
     }
+
 }
