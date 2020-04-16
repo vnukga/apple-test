@@ -96,15 +96,18 @@ class AppleWidget extends Widget
     private function getButtons() : string
     {
         return '
-            <div class="row">
+            <div class="row" style="height: 75px">
                 <button class="btn btn-info col-xs-3 apple-fall" data-id="' . $this->apple->id . '">' . Yii::t('apple', 'Fall') .'</button>
                     <div class="col-xs-1"></div>
-                <div class="input-group col-xs-8">
+                    <div class="col-xs-8">
+                <div class="input-group">
+                    <span class="glyphicon form-control-feedback"></span> 
                     <span class="input-group-btn">
                       <button class="btn btn-default apple-eat" type="button" data-id="' . $this->apple->id . '">' . Yii::t('apple', 'Eat (%)') .'</button>
                     </span>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control is-invalid">
                 </div>
+              </div>
             </div>
         ';
     }
