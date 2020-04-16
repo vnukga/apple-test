@@ -2,12 +2,14 @@
 
 namespace backend\modules\apple\controllers;
 
+use backend\modules\apple\helpers\ResponseHelper;
 use backend\modules\apple\services\AppleService;
 use Yii;
 use backend\modules\apple\models\Apple;
+use yii\helpers\Url;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * AppleController implements the CRUD actions for Apple model.
@@ -26,10 +28,13 @@ class AppleController extends Controller
      */
     private AppleService $service;
 
+    private ResponseHelper $helper;
+
     public function __construct($id, $module, $config = [])
     {
         parent::__construct($id, $module, $config);
         $this->service = new AppleService();
+        $this->helper = new ResponseHelper();
     }
 
     /**
@@ -63,7 +68,7 @@ class AppleController extends Controller
     /**
      * Генерирует произвольное количество яблок
      *
-     * @return \yii\web\Response
+     * @return Response
      */
     public function actionGenerate()
     {
@@ -72,6 +77,41 @@ class AppleController extends Controller
             $this->service->generate();
         }
         Yii::$app->session->setFlash('success', Yii::t('apple', 'Apples have been generated: ') . $i);
-        return $this->redirect('index');
+        return $this->redirect(Url::home() . 'apple');
+    }
+
+    /**
+     * Уронить яблоко
+     *
+     * @return array|Response
+     */
+    public function actionFall()
+    {
+        if(!Yii::$app->request->isAjax) {
+            return $this->redirect(Url::home() . 'apple');
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        $apple = Apple::findOne(['id' => $id]);
+        $this->service->fall($apple);
+        return $this->helper->responseSuccess($apple);
+    }
+
+    /**
+     * Откусить яблоко
+     *
+     * @return array|Response
+     */
+    public function actionEat()
+    {
+        if(!Yii::$app->request->isAjax) {
+            return $this->redirect(Url::home() . 'apple');
+        }
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('id');
+        $percents = Yii::$app->request->post('percents');
+        $apple = Apple::findOne(['id' => $id]);
+        $this->service->eat($apple, $percents);
+        return $this->helper->responseSuccess($apple);
     }
 }

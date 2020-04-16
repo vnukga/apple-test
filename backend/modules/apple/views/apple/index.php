@@ -1,5 +1,6 @@
 <?php
 
+use backend\modules\apple\assets\MainAsset;
 use backend\modules\apple\widgets\AppleWidget;
 use yii\helpers\Html;
 
@@ -9,6 +10,8 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('apple', 'Apples');
 $this->params['breadcrumbs'][] = $this->title;
+
+MainAsset::register($this);
 ?>
 <div class="apple-index">
 

@@ -4,6 +4,7 @@
 namespace backend\modules\apple\widgets;
 
 use backend\modules\apple\models\Apple;
+use backend\modules\apple\services\AppleService;
 use Yii;
 use yii\base\Widget;
 
@@ -21,6 +22,14 @@ class AppleWidget extends Widget
      * @var Apple
      */
     public Apple $apple;
+
+    public AppleService $service;
+
+    public function init()
+    {
+        parent::init();
+        $this->service = new AppleService();
+    }
 
     /**
      * Запуск виджета
@@ -43,9 +52,9 @@ class AppleWidget extends Widget
      */
     private function getPropertiesTable() : string
     {
-        $appeared_at = date('Y-m-d H:i:s', $this->apple->appeared_at);
-        $fell_at = $this->apple->fell_at ? date('Y-m-d H:i:s', $this->apple->fell_at) : '';
-        $status = $this->getAppleStatus();
+        $appeared_at = $this->service->getAppearedAt($this->apple);
+        $fell_at = $this->service->getFellAt($this->apple);
+        $status = $this->service->getStatus($this->apple);
         return '
             <table class="table">
                 <thead>
@@ -88,11 +97,11 @@ class AppleWidget extends Widget
     {
         return '
             <div class="row">
-                <button class="btn btn-info col-xs-3">' . Yii::t('apple', 'Fall') .'</button>
+                <button class="btn btn-info col-xs-3 apple-fall" data-id="' . $this->apple->id . '">' . Yii::t('apple', 'Fall') .'</button>
                     <div class="col-xs-1"></div>
                 <div class="input-group col-xs-8">
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">' . Yii::t('apple', 'Eat (%)') .'</button>
+                      <button class="btn btn-default apple-eat" type="button" data-id="' . $this->apple->id . '">' . Yii::t('apple', 'Eat (%)') .'</button>
                     </span>
                     <input type="text" class="form-control">
                 </div>
@@ -100,23 +109,5 @@ class AppleWidget extends Widget
         ';
     }
 
-    /**
-     * Получение текстового статуса яблока
-     *
-     * @return string
-     */
-    private function getAppleStatus() : string
-    {
-        switch ($this->apple->status) {
-            case Apple::STATUS_ON_TREE:
-                return Yii::t('apple', 'On tree');
-                break;
-            case Apple::STATUS_ON_GROUND:
-                return Yii::t('apple', 'On ground');
-                break;
-            case Apple::STATUS_ROTTEN:
-                return Yii::t('apple', 'Rotten');
-                break;
-        }
-    }
+
 }
