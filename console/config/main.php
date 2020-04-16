@@ -20,6 +20,13 @@ return [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
           ],
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => [
+                __DIR__ . '/../migrations',
+                __DIR__ . '/../../backend/modules/apple/migrations',
+            ],
+        ],
     ],
     'components' => [
         'log' => [
