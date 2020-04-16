@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'appeared_at')->textInput() ?>
 
-    <?= $form->field($model, 'falled_at')->textInput() ?>
+    <?= $form->field($model, 'fell_at')->textInput() ?>
 
     <?= $form->field($model, 'eaten')->textInput() ?>
 

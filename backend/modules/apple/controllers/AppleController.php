@@ -4,7 +4,6 @@ namespace backend\modules\apple\controllers;
 
 use Yii;
 use backend\modules\apple\models\Apple;
-use backend\modules\apple\models\AppleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,12 +34,16 @@ class AppleController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new AppleSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+//        $searchModel = new AppleSearch();
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//
+//        return $this->render('index', [
+//            'searchModel' => $searchModel,
+//            'dataProvider' => $dataProvider,
+//        ]);
+        $apples = Apple::find()->all();
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+           'apples' => $apples
         ]);
     }
 
@@ -101,6 +104,8 @@ class AppleController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {

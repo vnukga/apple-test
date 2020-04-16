@@ -3,6 +3,7 @@
 namespace backend\modules\apple\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "apple".
@@ -10,11 +11,11 @@ use Yii;
  * @property int $id
  * @property string $color
  * @property int $appeared_at
- * @property int|null $falled_at
+ * @property int|null $fell_at
  * @property int|null $eaten
  * @property int|null $status
  */
-class Apple extends \yii\db\ActiveRecord
+class Apple extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -31,7 +32,7 @@ class Apple extends \yii\db\ActiveRecord
     {
         return [
             [['color', 'appeared_at'], 'required'],
-            [['appeared_at', 'falled_at', 'eaten', 'status'], 'integer'],
+            [['appeared_at', 'fell_at', 'eaten', 'status'], 'integer'],
             [['color'], 'string', 'max' => 7],
         ];
     }
@@ -45,7 +46,7 @@ class Apple extends \yii\db\ActiveRecord
             'id' => Yii::t('apple', 'ID'),
             'color' => Yii::t('apple', 'Color'),
             'appeared_at' => Yii::t('apple', 'Appeared At'),
-            'falled_at' => Yii::t('apple', 'Falled At'),
+            'fell_at' => Yii::t('apple', 'Fell At'),
             'eaten' => Yii::t('apple', 'Eaten'),
             'status' => Yii::t('apple', 'Status'),
         ];
