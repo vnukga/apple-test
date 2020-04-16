@@ -4,6 +4,8 @@
 namespace backend\modules\apple\services;
 
 use backend\modules\apple\models\Apple;
+use backend\modules\apple\states\exceptions\NotEatableException;
+use backend\modules\apple\states\exceptions\NotFallableException;
 use Yii;
 
 /**
@@ -31,6 +33,7 @@ class AppleService
      * Уронить яблоко
      *
      * @param Apple $apple
+     * @throws NotFallableException
      */
     public function fall(Apple $apple) : void
     {
@@ -44,6 +47,7 @@ class AppleService
      * @param Apple $apple
      * @param int $percents
      * @return bool
+     * @throws NotEatableException
      */
     public function eat(Apple $apple, int $percents) : bool
     {

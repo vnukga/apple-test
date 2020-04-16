@@ -44,7 +44,7 @@ class OnGroundState implements AppleStateInterface
      */
     public function fall(): void
     {
-        throw new NotFallableException(Yii::t('app\error', 'You can\'t drop apple that is already fallen'));
+        throw new NotFallableException(Yii::t('apple/error', 'You can\'t drop apple that is already fallen'));
     }
 
     /**

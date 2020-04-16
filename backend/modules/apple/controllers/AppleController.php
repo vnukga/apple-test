@@ -119,7 +119,7 @@ class AppleController extends Controller
         $apple = Apple::findOne(['id' => $id]);
         try {
             if(!$this->service->eat($apple, $percents)) {
-                return $this->helper->responseError(['eaten' => Yii::t('app/error', 'Apple was completely eaten!')]);
+                return $this->helper->responseError(['eaten' => Yii::t('apple/error', 'Apple was completely eaten!')]);
             }
         } catch (NotEatableException $exception) {
             return $this->helper->responseError(['exception' => $exception->getMessage()]);

@@ -39,7 +39,7 @@ class AppleWidget extends Widget
     public function run()
     {
         return
-        '<div class="well col-xs-4">' .
+        '<div class="well col-xs-4" id="apple-item-' . $this->apple->id .'">' .
             $this->getPropertiesTable() .
             $this->getButtons() .
         '</div>';
@@ -74,15 +74,15 @@ class AppleWidget extends Widget
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Fell At') .'</th>
-                        <td>' .  $fell_at .'</td>
+                        <td class="apple-fell-at">' .  $fell_at .'</td>
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Status') .'</th>
-                        <td>' . $status .'</td>
+                        <td class="apple-status">' . $status .'</td>
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Eaten') .'</th>
-                        <td>' . $this->apple->eaten .'</td>
+                        <td class="apple-eaten">' . $this->apple->eaten .'</td>
                     </tr>
                 </tbody>
             </table>';

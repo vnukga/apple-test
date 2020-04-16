@@ -33,7 +33,7 @@ class RottenState implements AppleStateInterface
      */
     public function fall(): void
     {
-        throw new NotFallableException(Yii::t('app\error', 'You can\'t drop rotten apple!'));
+        throw new NotFallableException(Yii::t('apple/error', 'You can\'t drop rotten apple!'));
     }
 
     /**
@@ -44,6 +44,6 @@ class RottenState implements AppleStateInterface
      */
     public function eat(int $percents): ?bool
     {
-        throw new NotEatableException(Yii::t('app\error', 'You can\'t eat rotten apple!'));
+        throw new NotEatableException(Yii::t('apple/error', 'You can\'t eat rotten apple!'));
     }
 }
