@@ -58,11 +58,12 @@ class OnGroundState implements AppleStateInterface
     public function eat(int $percents): bool
     {
         if(!$this->checkIsRotten()) {
-            $this->apple->eaten += $percents;
-            if ($this->apple->eaten >= self::APPLE_PERCENTS) {
+            $eaten = $this->apple->eaten + $percents;
+            if ($eaten >= self::APPLE_PERCENTS) {
                 $this->apple->delete();
                 return false;
             }
+            $this->apple->eaten = $eaten;
             return true;
         } else {
             return $this->apple->state->eat($percents);
@@ -72,11 +73,13 @@ class OnGroundState implements AppleStateInterface
     /**
      * Проверка, не протухло ли яблоко
      */
-    private function checkIsRotten()
+    private function checkIsRotten() : bool
     {
         if($this->apple->fell_at + self::EXPIRATION_PERIOD < time()) {
             $this->apple->status = Apple::STATUS_ROTTEN;
             $this->apple->state = new RottenState($this->apple);
+            return true;
         }
+        return false;
     }
 }

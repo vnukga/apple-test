@@ -122,7 +122,7 @@ class AppleController extends Controller
                 return $this->helper->responseError(['eaten' => Yii::t('apple/error', 'Apple was completely eaten!')]);
             }
         } catch (NotEatableException $exception) {
-            return $this->helper->responseError(['exception' => $exception->getMessage()]);
+            return $this->helper->responseError(['exception' => $exception->getMessage(), 'status' => $this->service->getStatus($apple)]);
         }
         return $this->helper->responseSuccess($apple);
     }

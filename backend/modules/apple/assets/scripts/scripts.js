@@ -39,6 +39,9 @@ function send(url,data){
                 $('#apple-item-' + data.id).remove();
                 alert(error.eaten);
             }
+            if(error.status){
+                $('#apple-item-' + data.id).find('.apple-status').text(error.status);
+            }
     });
 }
 

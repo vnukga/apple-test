@@ -97,7 +97,7 @@ class AppleWidget extends Widget
     {
         return '
             <div class="row" style="height: 75px">
-                <button class="btn btn-info col-xs-3 apple-fall" data-id="' . $this->apple->id . '">' . Yii::t('apple', 'Fall') .'</button>
+                <button class="btn btn-info col-xs-3 apple-fall" data-id="' . $this->apple->id . '">' . Yii::t('apple', 'Drop') .'</button>
                     <div class="col-xs-1"></div>
                     <div class="col-xs-8">
                 <div class="input-group">
