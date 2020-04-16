@@ -16,7 +16,7 @@ class AppleService
     /**
      * Генерация яблока
      */
-    public function generate()
+    public function generate() : void
     {
         $apple = new Apple();
         $apple->color = $this->generateRandomColor();
@@ -27,23 +27,50 @@ class AppleService
         $apple->save();
     }
 
-    public function fall(Apple $apple)
+    /**
+     * Уронить яблоко
+     *
+     * @param Apple $apple
+     */
+    public function fall(Apple $apple) : void
     {
         $apple->state->fall();
         $apple->save();
     }
 
-    public function eat(Apple $apple, int $percents)
+    /**
+     * Откусить яблоко
+     *
+     * @param Apple $apple
+     * @param int $percents
+     * @return bool
+     */
+    public function eat(Apple $apple, int $percents) : bool
     {
-        $apple->state->eat($percents);
-        $apple->save();
+        if($apple->state->eat($percents)) {
+            $apple->save();
+            return true;
+        }
+        return false;
     }
 
+    /**
+     * Получить дату появления яблока
+     *
+     * @param Apple $apple
+     * @return string
+     */
     public function getAppearedAt(Apple $apple) : string
     {
         return date('Y-m-d H:i:s', $apple->appeared_at);
     }
 
+    /**
+     * Получить дату падения яблока
+     *
+     * @param Apple $apple
+     * @return string
+     */
     public function getFellAt(Apple $apple) : string
     {
         return $apple->fell_at ? date('Y-m-d H:i:s', $apple->fell_at) : '';

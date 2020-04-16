@@ -4,6 +4,8 @@ namespace backend\modules\apple\controllers;
 
 use backend\modules\apple\helpers\ResponseHelper;
 use backend\modules\apple\services\AppleService;
+use backend\modules\apple\states\exceptions\NotEatableException;
+use backend\modules\apple\states\exceptions\NotFallableException;
 use Yii;
 use backend\modules\apple\models\Apple;
 use yii\helpers\Url;
@@ -93,7 +95,11 @@ class AppleController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $id = Yii::$app->request->post('id');
         $apple = Apple::findOne(['id' => $id]);
-        $this->service->fall($apple);
+        try {
+            $this->service->fall($apple);
+        } catch (NotFallableException $exception) {
+            return $this->helper->responseError(['exception' => $exception->getMessage()]);
+        }
         return $this->helper->responseSuccess($apple);
     }
 
@@ -111,7 +117,13 @@ class AppleController extends Controller
         $id = Yii::$app->request->post('id');
         $percents = Yii::$app->request->post('percents');
         $apple = Apple::findOne(['id' => $id]);
-        $this->service->eat($apple, $percents);
+        try {
+            if(!$this->service->eat($apple, $percents)) {
+                return $this->helper->responseError(['eaten' => Yii::t('app/error', 'Apple was completely eaten!')]);
+            }
+        } catch (NotEatableException $exception) {
+            return $this->helper->responseError(['exception' => $exception->getMessage()]);
+        }
         return $this->helper->responseSuccess($apple);
     }
 }

@@ -115,4 +115,10 @@ class Apple extends ActiveRecord
             }
         ];
     }
+
+    public function afterFind()
+    {
+        parent::afterFind();
+        $this->state = $this->getStateFromStatus();
+    }
 }
