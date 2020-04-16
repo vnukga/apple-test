@@ -18,6 +18,21 @@ use yii\db\ActiveRecord;
 class Apple extends ActiveRecord
 {
     /**
+     * Статус "На дереве"
+     */
+    const STATUS_ON_TREE = 0;
+
+    /**
+     * Статус "На земле"
+     */
+    const STATUS_ON_GROUND = 10;
+
+    /**
+     * Статус "Гнилое"
+     */
+    const STATUS_ROTTEN = 20;
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -51,5 +66,4 @@ class Apple extends ActiveRecord
             'status' => Yii::t('apple', 'Status'),
         ];
     }
-
 }

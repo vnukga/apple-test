@@ -14,12 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a(Yii::t('apple', 'Create Apple'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <div class="row">
         <?php foreach ($apples as $apple): ?>
             <?= AppleWidget::widget(['apple' => $apple]); ?>
@@ -29,6 +23,4 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('apple', 'Generate Apples'), ['generate'], ['class' => 'btn btn-success']) ?>
     </p>
-
-
 </div>

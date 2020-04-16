@@ -43,6 +43,9 @@ class AppleWidget extends Widget
      */
     private function getPropertiesTable() : string
     {
+        $appeared_at = date('Y-m-d H:i:s', $this->apple->appeared_at);
+        $fell_at = $this->apple->fell_at ? date('Y-m-d H:i:s', $this->apple->fell_at) : '';
+        $status = $this->getAppleStatus();
         return '
             <table class="table">
                 <thead>
@@ -54,19 +57,19 @@ class AppleWidget extends Widget
                 <tbody>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Color') .'</th>
-                        <td>' . $this->apple->color .'</td>
+                        <td><span style="color:' . $this->apple->color .'">' . $this->apple->color .'</span></td>
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Appeared At') .'</th>
-                        <td>' . $this->apple->appeared_at .'</td>
+                        <td>' . $appeared_at  .'</td>
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Fell At') .'</th>
-                        <td>' . $this->apple->fell_at .'</td>
+                        <td>' .  $fell_at .'</td>
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Status') .'</th>
-                        <td>' . $this->apple->status .'</td>
+                        <td>' . $status .'</td>
                     </tr>
                     <tr>
                         <th scope="row">' . Yii::t('apple', 'Eaten') .'</th>
@@ -95,5 +98,25 @@ class AppleWidget extends Widget
                 </div>
             </div>
         ';
+    }
+
+    /**
+     * Получение текстового статуса яблока
+     *
+     * @return string
+     */
+    private function getAppleStatus() : string
+    {
+        switch ($this->apple->status) {
+            case Apple::STATUS_ON_TREE:
+                return Yii::t('apple', 'On tree');
+                break;
+            case Apple::STATUS_ON_GROUND:
+                return Yii::t('apple', 'On ground');
+                break;
+            case Apple::STATUS_ROTTEN:
+                return Yii::t('apple', 'Rotten');
+                break;
+        }
     }
 }
